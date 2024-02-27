@@ -82,6 +82,14 @@ public class IngredientDaoImpl implements IngredientDao{
 
   @Override
   public boolean deleteIngredient(int ingredientId) {
+    try (Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.DELETE_INGREDIENT.getQuery())) {
+      preparedStatement.setInt(1, ingredientId);
+      int affectedRows = preparedStatement.executeUpdate();
+      return affectedRows > 0;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     return false;
   }
 
