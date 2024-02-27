@@ -46,6 +46,22 @@ public class IngredientDaoImpl implements IngredientDao{
 
   @Override
   public boolean insertIngredient(Ingredient ingredient) {
+    try(
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.INSERT_INGREDIENT.getQuery());
+
+        ) {
+      preparedStatement.setString(1, ingredient.getName());
+      preparedStatement.setInt(2, ingredient.getQuantity());
+      int affectedRows = preparedStatement.executeUpdate();
+      if(affectedRows > 0){
+        return  true;
+      }
+
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     return false;
   }
 
