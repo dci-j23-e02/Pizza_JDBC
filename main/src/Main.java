@@ -11,12 +11,12 @@ public class Main {
     Ingredient cheese = new Ingredient("Cheese", 50);
 
    /*
-    if(ingredientDao.insertIngredient(ingredient)){
+    if(ingredientDao.insertIngredient(tomato)){
       System.out.println("Tomato ingredient inserted successfully.");
     }
 
 
-    if(ingredientDao.insertIngredient(ingredient2)){
+    if(ingredientDao.insertIngredient(cheese)){
       System.out.println("Cheese ingredient inserted successfully.");
     }
 
