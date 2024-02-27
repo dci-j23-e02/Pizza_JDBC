@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
 import java.util.Set;
 
 public class IngredientDaoImpl implements IngredientDao{
@@ -29,7 +31,17 @@ public class IngredientDaoImpl implements IngredientDao{
 
   @Override
   public Set<Ingredient> getAllIngredients() {
-    return null;
+    Set<Ingredient> ingredients = new HashSet<>();
+    try (Connection connection = ConnectionFactory.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(SqlQuery.GET_ALL_INGREDIENTS.getQuery())) {
+      while (resultSet.next()) {
+        ingredients.add(extractIngredientFromResultSet(resultSet));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return ingredients;
   }
 
   @Override
