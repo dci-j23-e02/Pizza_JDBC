@@ -31,4 +31,16 @@ public class ConnectionFactory {
     }
     return conn; // Return the connection object
   }
+
+
+  /**
+   * Test Connection
+   */
+
+  public static void main(String[] args) {
+    Connection connection = getConnection();
+    // Ensure to close the connection after use, which is not shown here
+  }
 }
+
+
