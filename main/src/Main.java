@@ -7,6 +7,7 @@ public class Main {
   public static void main(String[] args) {
     IngredientDao ingredientDao = new IngredientDaoImpl();
     System.out.println( "Inserting new ingredient");
+
     Ingredient tomato = new Ingredient("Tomato", 100);
     Ingredient cheese = new Ingredient("Cheese", 50);
 
@@ -25,11 +26,15 @@ public class Main {
     for (Ingredient ingredient: ingredientSet) {
       System.out.println(ingredient);
     }
-*/
+
 
     // Update an ingredient
     System.out.println("Update Tomato quantity");
+    tomato = ingredientDao.getIngredient(1);
     tomato.setQuantity(50);
-
+    if(ingredientDao.updateIngredient(tomato)){
+      System.out.println("Tomato ingredient quantity updated successfully!");
+    }
+*/
   }
 }

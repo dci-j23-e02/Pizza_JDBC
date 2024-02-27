@@ -27,7 +27,22 @@ public class IngredientDaoImpl implements IngredientDao{
     return null;
   }
 
-
+@Override
+public Ingredient getIngredientByName(String ingredientName){
+  try(
+      Connection connection = ConnectionFactory.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.GET_INGREDIENT_BY_NAME.getQuery())
+  ){
+    preparedStatement.setString(1, ingredientName);
+    ResultSet resultSet = preparedStatement.executeQuery();
+    if(resultSet.next()){
+      return extractIngredientFromResultSet(resultSet);
+    }
+  }catch(SQLException e){
+    e.printStackTrace();
+  }
+  return null;
+}
 
   @Override
   public Set<Ingredient> getAllIngredients() {
@@ -45,7 +60,8 @@ public class IngredientDaoImpl implements IngredientDao{
   }
 
   @Override
-  public boolean insertIngredient(Ingredient ingredient) {
+  public Ingredient insertIngredient(Ingredient ingredient) {
+
     try(
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SqlQuery.INSERT_INGREDIENT.getQuery());
@@ -55,14 +71,15 @@ public class IngredientDaoImpl implements IngredientDao{
       preparedStatement.setInt(2, ingredient.getQuantity());
       int affectedRows = preparedStatement.executeUpdate();
       if(affectedRows > 0){
-        return  true;
+        return getIngredientByName(ingredient.getName());
+
       }
 
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return false;
+    return null;
   }
 
   @Override
