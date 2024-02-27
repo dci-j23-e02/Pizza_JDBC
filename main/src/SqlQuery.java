@@ -1,11 +1,11 @@
 package src;
 
 public enum SqlQuery {
-  GET_INGREDIENT_BY_ID(""),
-  GET_ALL_INGREDIENTS(""),
-  INSERT_INGREDIENTS(""),
-  UPDATE_INGREDIENT(""),
-  DELETE_INGREDIENT("");
+  GET_INGREDIENT_BY_ID("SELECT * FROM pizza_ingredients WHERE id = ?"),
+  GET_ALL_INGREDIENTS("SELECT * FROM pizza_ingredients"),
+  INSERT_INGREDIENT("INSERT INTO pizza_ingredients (name, quantity) VALUES (?, ?)"),
+  UPDATE_INGREDIENT("UPDATE pizza_ingredients SET name = ?, quantity = ? WHERE id = ?"),
+  DELETE_INGREDIENT("DELETE FROM pizza_ingredients WHERE id = ?");
 
   private final String query;
 
