@@ -39,7 +39,8 @@ public class ConnectionFactory {
 
   public static void main(String[] args) {
     Connection connection = getConnection();
-    // Ensure to close the connection after use, which is not shown here
+
+
   }
 }
 
